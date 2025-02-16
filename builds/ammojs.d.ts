@@ -1,6 +1,7 @@
-declare module 'ammojs-ts' {
-    export function destroy(obj: any): void;
-    export class btIDebugDraw {
+declare namespace Ammo {
+    // Basic types (expand as needed)
+    function destroy(obj: any): void;
+    class btIDebugDraw {
         drawLine(from: btVector3, to: btVector3, color: btVector3): void;
         drawContactPoint(pointOnB: btVector3, normalOnB: btVector3, distance: number, lifeTime: number, color: btVector3): void;
         reportErrorWarning(warningString: string): void;
@@ -8,7 +9,7 @@ declare module 'ammojs-ts' {
         setDebugMode(debugMode: number): void;
         getDebugMode(): number;
     }
-    export class DebugDrawer {
+    class DebugDrawer {
         constructor();
         drawLine(from: btVector3, to: btVector3, color: btVector3): void;
         drawContactPoint(pointOnB: btVector3, normalOnB: btVector3, distance: number, lifeTime: number, color: btVector3): void;
@@ -17,7 +18,7 @@ declare module 'ammojs-ts' {
         setDebugMode(debugMode: number): void;
         getDebugMode(): number;
     }
-    export class btVector3 {
+    class btVector3 {
         constructor();
         constructor(x: number, y: number, z: number);
         length(): number;
@@ -35,14 +36,14 @@ declare module 'ammojs-ts' {
         op_add(v: btVector3): btVector3;
         op_sub(v: btVector3): btVector3;
     }
-    export class btVector4 extends btVector3 {
+    class btVector4 extends btVector3 {
         constructor();
         constructor(x: number, y: number, z: number, w: number);
         w(): number;
         setValue(x: number, y: number, z: number): void;
         setValue(x: number, y: number, z: number, w: number): void;
     }
-    export class btQuadWord {
+    class btQuadWord {
         x(): number;
         y(): number;
         z(): number;
@@ -52,7 +53,7 @@ declare module 'ammojs-ts' {
         setZ(z: number): void;
         setW(w: number): void;
     }
-    export class btQuaternion extends btQuadWord {
+    class btQuaternion extends btQuadWord {
         constructor(x: number, y: number, z: number, w: number);
         setValue(x: number, y: number, z: number, w: number): void;
         setEulerZYX(z: number, y: number, x: number): void;
@@ -74,12 +75,12 @@ declare module 'ammojs-ts' {
         op_mulq(q: btQuaternion): btQuaternion;
         op_div(s: number): btQuaternion;
     }
-    export class btMatrix3x3 {
+    class btMatrix3x3 {
         setEulerZYX(ex: number, ey: number, ez: number): void;
         getRotation(q: btQuaternion): void;
         getRow(y: number): btVector3;
     }
-    export class btTransform {
+    class btTransform {
         constructor();
         constructor(q: btQuaternion, v: btVector3);
         setIdentity(): void;
@@ -92,16 +93,16 @@ declare module 'ammojs-ts' {
         inverse(): btTransform;
         op_mul(t: btTransform): btTransform;
     }
-    export class btMotionState {
+    class btMotionState {
         getWorldTransform(worldTrans: btTransform): void;
         setWorldTransform(worldTrans: btTransform): void;
     }
-    export class btDefaultMotionState extends btMotionState {
+    class btDefaultMotionState extends btMotionState {
         constructor(startTrans?: btTransform, centerOfMassOffset?: btTransform);
         get_m_graphicsWorldTrans(): btTransform;
         set_m_graphicsWorldTrans(m_graphicsWorldTrans: btTransform): void;
     }
-    export class btCollisionObject {
+    class btCollisionObject {
         setAnisotropicFriction(anisotropicFriction: btVector3, frictionMode: number): void;
         getCollisionShape(): btCollisionShape;
         setContactProcessingThreshold(contactProcessingThreshold: number): void;
@@ -131,12 +132,12 @@ declare module 'ammojs-ts' {
         setUserPointer(userPointer: unknown): void;
         getBroadphaseHandle(): btBroadphaseProxy;
     }
-    export class btCollisionObjectWrapper {
+    class btCollisionObjectWrapper {
         getWorldTransform(): btTransform;
         getCollisionObject(): btCollisionObject;
         getCollisionShape(): btCollisionShape;
     }
-    export class RayResultCallback {
+    class RayResultCallback {
         hasHit(): boolean;
         get_m_collisionFilterGroup(): number;
         set_m_collisionFilterGroup(m_collisionFilterGroup: number): void;
@@ -147,7 +148,7 @@ declare module 'ammojs-ts' {
         get_m_collisionObject(): btCollisionObject;
         set_m_collisionObject(m_collisionObject: btCollisionObject): void;
     }
-    export class ClosestRayResultCallback extends RayResultCallback {
+    class ClosestRayResultCallback extends RayResultCallback {
         constructor(from: btVector3, to: btVector3);
         get_m_rayFromWorld(): btVector3;
         set_m_rayFromWorld(m_rayFromWorld: btVector3): void;
@@ -158,15 +159,15 @@ declare module 'ammojs-ts' {
         get_m_hitPointWorld(): btVector3;
         set_m_hitPointWorld(m_hitPointWorld: btVector3): void;
     }
-    export class btConstCollisionObjectArray {
+    class btConstCollisionObjectArray {
         size(): number;
         at(n: number): btCollisionObject;
     }
-    export class btScalarArray {
+    class btScalarArray {
         size(): number;
         at(n: number): number;
     }
-    export class AllHitsRayResultCallback extends RayResultCallback {
+    class AllHitsRayResultCallback extends RayResultCallback {
         constructor(from: btVector3, to: btVector3);
         get_m_collisionObjects(): btConstCollisionObjectArray;
         set_m_collisionObjects(m_collisionObjects: btConstCollisionObjectArray): void;
@@ -181,7 +182,7 @@ declare module 'ammojs-ts' {
         get_m_hitFractions(): btScalarArray;
         set_m_hitFractions(m_hitFractions: btScalarArray): void;
     }
-    export class btManifoldPoint {
+    class btManifoldPoint {
         getPositionWorldOnA(): btVector3;
         getPositionWorldOnB(): btVector3;
         getAppliedImpulse(): number;
@@ -199,20 +200,20 @@ declare module 'ammojs-ts' {
         get_m_userPersistentData(): any;
         set_m_userPersistentData(m_userPersistentData: any): void;
     }
-    export class ContactResultCallback {
+    class ContactResultCallback {
         addSingleResult(cp: btManifoldPoint, colObj0Wrap: btCollisionObjectWrapper, partId0: number, index0: number, colObj1Wrap: btCollisionObjectWrapper, partId1: number, index1: number): number;
     }
-    export class ConcreteContactResultCallback {
+    class ConcreteContactResultCallback {
         constructor();
         addSingleResult(cp: btManifoldPoint, colObj0Wrap: btCollisionObjectWrapper, partId0: number, index0: number, colObj1Wrap: btCollisionObjectWrapper, partId1: number, index1: number): number;
     }
-    export class LocalShapeInfo {
+    class LocalShapeInfo {
         get_m_shapePart(): number;
         set_m_shapePart(m_shapePart: number): void;
         get_m_triangleIndex(): number;
         set_m_triangleIndex(m_triangleIndex: number): void;
     }
-    export class LocalConvexResult {
+    class LocalConvexResult {
         constructor(hitCollisionObject: btCollisionObject, localShapeInfo: LocalShapeInfo, hitNormalLocal: btVector3, hitPointLocal: btVector3, hitFraction: number);
         get_m_hitCollisionObject(): btCollisionObject;
         set_m_hitCollisionObject(m_hitCollisionObject: btCollisionObject): void;
@@ -225,7 +226,7 @@ declare module 'ammojs-ts' {
         get_m_hitFraction(): number;
         set_m_hitFraction(m_hitFraction: number): void;
     }
-    export class ConvexResultCallback {
+    class ConvexResultCallback {
         hasHit(): boolean;
         get_m_collisionFilterGroup(): number;
         set_m_collisionFilterGroup(m_collisionFilterGroup: number): void;
@@ -234,7 +235,7 @@ declare module 'ammojs-ts' {
         get_m_closestHitFraction(): number;
         set_m_closestHitFraction(m_closestHitFraction: number): void;
     }
-    export class ClosestConvexResultCallback extends ConvexResultCallback {
+    class ClosestConvexResultCallback extends ConvexResultCallback {
         constructor(convexFromWorld: btVector3, convexToWorld: btVector3);
         get_m_convexFromWorld(): btVector3;
         set_m_convexFromWorld(m_convexFromWorld: btVector3): void;
@@ -245,24 +246,24 @@ declare module 'ammojs-ts' {
         get_m_hitPointWorld(): btVector3;
         set_m_hitPointWorld(m_hitPointWorld: btVector3): void;
     }
-    export class btCollisionShape {
+    class btCollisionShape {
         setLocalScaling(scaling: btVector3): void;
         getLocalScaling(): btVector3;
         calculateLocalInertia(mass: number, inertia: btVector3): void;
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btConvexShape extends btCollisionShape {
+    class btConvexShape extends btCollisionShape {
     }
-    export class btConvexTriangleMeshShape extends btConvexShape {
+    class btConvexTriangleMeshShape extends btConvexShape {
         constructor(meshInterface: btStridingMeshInterface, calcAabb?: boolean);
     }
-    export class btBoxShape extends btCollisionShape {
+    class btBoxShape extends btCollisionShape {
         constructor(boxHalfExtents: btVector3);
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btCapsuleShape extends btCollisionShape {
+    class btCapsuleShape extends btCollisionShape {
         constructor(radius: number, height: number);
         setMargin(margin: number): void;
         getMargin(): number;
@@ -270,73 +271,73 @@ declare module 'ammojs-ts' {
         getRadius(): number;
         getHalfHeight(): number;
     }
-    export class btCapsuleShapeX extends btCapsuleShape {
+    class btCapsuleShapeX extends btCapsuleShape {
         constructor(radius: number, height: number);
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btCapsuleShapeZ extends btCapsuleShape {
+    class btCapsuleShapeZ extends btCapsuleShape {
         constructor(radius: number, height: number);
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btCylinderShape extends btCollisionShape {
+    class btCylinderShape extends btCollisionShape {
         constructor(halfExtents: btVector3);
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btCylinderShapeX extends btCylinderShape {
+    class btCylinderShapeX extends btCylinderShape {
         constructor(halfExtents: btVector3);
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btCylinderShapeZ extends btCylinderShape {
+    class btCylinderShapeZ extends btCylinderShape {
         constructor(halfExtents: btVector3);
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btSphereShape extends btCollisionShape {
+    class btSphereShape extends btCollisionShape {
         constructor(radius: number);
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btMultiSphereShape extends btCollisionShape {
+    class btMultiSphereShape extends btCollisionShape {
         constructor(positions: btVector3, radii: ReadonlyArray<number>, numPoints: number);
     }
-    export class btConeShape extends btCollisionShape {
+    class btConeShape extends btCollisionShape {
         constructor(radius: number, height: number);
     }
-    export class btConeShapeX extends btConeShape {
+    class btConeShapeX extends btConeShape {
         constructor(radius: number, height: number);
     }
-    export class btConeShapeZ extends btConeShape {
+    class btConeShapeZ extends btConeShape {
         constructor(radius: number, height: number);
     }
-    export class btIntArray {
+    class btIntArray {
         size(): number;
         at(n: number): number;
     }
-    export class btFace {
+    class btFace {
         get_m_indices(): btIntArray;
         set_m_indices(m_indices: btIntArray): void;
         get_m_plane(): ReadonlyArray<number>;
         set_m_plane(m_plane: ReadonlyArray<number>): void;
     }
-    export class btVector3Array {
+    class btVector3Array {
         size(): number;
         at(n: number): btVector3;
     }
-    export class btFaceArray {
+    class btFaceArray {
         size(): number;
         at(n: number): btFace;
     }
-    export class btConvexPolyhedron {
+    class btConvexPolyhedron {
         get_m_vertices(): btVector3Array;
         set_m_vertices(m_vertices: btVector3Array): void;
         get_m_faces(): btFaceArray;
         set_m_faces(m_faces: btFaceArray): void;
     }
-    export class btConvexHullShape extends btCollisionShape {
+    class btConvexHullShape extends btCollisionShape {
         constructor(points?: ReadonlyArray<number>, numPoints?: number);
         addPoint(point: btVector3, recalculateLocalAABB?: boolean): void;
         setMargin(margin: number): void;
@@ -346,13 +347,13 @@ declare module 'ammojs-ts' {
         recalcLocalAabb(): void;
         getConvexPolyhedron(): btConvexPolyhedron;
     }
-    export class btShapeHull {
+    class btShapeHull {
         constructor(shape: btConvexShape);
         buildHull(margin: number): boolean;
         numVertices(): number;
         getVertexPointer(): btVector3;
     }
-    export class btCompoundShape extends btCollisionShape {
+    class btCompoundShape extends btCollisionShape {
         constructor(enableDynamicAabbTree?: boolean);
         addChildShape(localTransform: btTransform, shape: btCollisionShape): void;
         removeChildShape(shape: btCollisionShape): void;
@@ -363,18 +364,18 @@ declare module 'ammojs-ts' {
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btStridingMeshInterface {
+    class btStridingMeshInterface {
         setScaling(scaling: btVector3): void;
     }
-    export class btIndexedMesh {
+    class btIndexedMesh {
         get_m_numTriangles(): number;
         set_m_numTriangles(m_numTriangles: number): void;
     }
-    export class btIndexedMeshArray {
+    class btIndexedMeshArray {
         size(): number;
         at(n: number): btIndexedMesh;
     }
-    export class btTriangleMesh extends btStridingMeshInterface {
+    class btTriangleMesh extends btStridingMeshInterface {
         constructor(use32bitIndices?: boolean, use4componentVertices?: boolean);
         addTriangle(vertex0: btVector3, vertex1: btVector3, vertex2: btVector3, removeDuplicateVertices?: boolean): void;
         findOrAddVertex(vertex: btVector3, removeDuplicateVertices: boolean): number;
@@ -389,68 +390,68 @@ declare module 'ammojs-ts' {
         PHY_FIXEDPOINT88,
         PHY_UCHAR
     }
-    export class btConcaveShape extends btCollisionShape {
+    class btConcaveShape extends btCollisionShape {
     }
-    export class btEmptyShape extends btConcaveShape {
+    class btEmptyShape extends btConcaveShape {
         constructor();
     }
-    export class btStaticPlaneShape extends btConcaveShape {
+    class btStaticPlaneShape extends btConcaveShape {
         constructor(planeNormal: btVector3, planeConstant: number);
     }
-    export class btTriangleMeshShape extends btConcaveShape {
+    class btTriangleMeshShape extends btConcaveShape {
     }
-    export class btBvhTriangleMeshShape extends btTriangleMeshShape {
+    class btBvhTriangleMeshShape extends btTriangleMeshShape {
         constructor(meshInterface: btStridingMeshInterface, useQuantizedAabbCompression: boolean, buildBvh?: boolean);
     }
-    export class btHeightfieldTerrainShape extends btConcaveShape {
+    class btHeightfieldTerrainShape extends btConcaveShape {
         constructor(heightStickWidth: number, heightStickLength: number, heightfieldData: unknown, heightScale: number, minHeight: number, maxHeight: number, upAxis: number, hdt: PHY_ScalarType, flipQuadEdges: boolean);
         setMargin(margin: number): void;
         getMargin(): number;
     }
-    export class btDefaultCollisionConstructionInfo {
+    class btDefaultCollisionConstructionInfo {
         constructor();
     }
-    export class btDefaultCollisionConfiguration {
+    class btDefaultCollisionConfiguration {
         constructor(info?: btDefaultCollisionConstructionInfo);
     }
-    export class btPersistentManifold {
+    class btPersistentManifold {
         constructor();
         getBody0(): btCollisionObject;
         getBody1(): btCollisionObject;
         getNumContacts(): number;
         getContactPoint(index: number): btManifoldPoint;
     }
-    export class btDispatcher {
+    class btDispatcher {
         getNumManifolds(): number;
         getManifoldByIndexInternal(index: number): btPersistentManifold;
     }
-    export class btCollisionDispatcher extends btDispatcher {
+    class btCollisionDispatcher extends btDispatcher {
         constructor(conf: btDefaultCollisionConfiguration);
     }
-    export class btOverlappingPairCallback {
+    class btOverlappingPairCallback {
     }
-    export class btOverlappingPairCache {
+    class btOverlappingPairCache {
         setInternalGhostPairCallback(ghostPairCallback: btOverlappingPairCallback): void;
         getNumOverlappingPairs(): number;
     }
-    export class btAxisSweep3 {
+    class btAxisSweep3 {
         constructor(worldAabbMin: btVector3, worldAabbMax: btVector3, maxHandles?: number, pairCache?: btOverlappingPairCache, disableRaycastAccelerator?: boolean);
     }
-    export class btBroadphaseInterface {
+    class btBroadphaseInterface {
         getOverlappingPairCache(): btOverlappingPairCache;
     }
-    export class btCollisionConfiguration {
+    class btCollisionConfiguration {
     }
-    export class btDbvtBroadphase extends btBroadphaseInterface {
+    class btDbvtBroadphase extends btBroadphaseInterface {
         constructor();
     }
-    export class btBroadphaseProxy {
+    class btBroadphaseProxy {
         get_m_collisionFilterGroup(): number;
         set_m_collisionFilterGroup(m_collisionFilterGroup: number): void;
         get_m_collisionFilterMask(): number;
         set_m_collisionFilterMask(m_collisionFilterMask: number): void;
     }
-    export class btRigidBodyConstructionInfo {
+    class btRigidBodyConstructionInfo {
         constructor(mass: number, motionState: btMotionState, collisionShape: btCollisionShape, localInertia?: btVector3);
         get_m_linearDamping(): number;
         set_m_linearDamping(m_linearDamping: number): void;
@@ -477,7 +478,7 @@ declare module 'ammojs-ts' {
         get_m_additionalAngularDampingFactor(): number;
         set_m_additionalAngularDampingFactor(m_additionalAngularDampingFactor: number): void;
     }
-    export class btRigidBody extends btCollisionObject {
+    class btRigidBody extends btCollisionObject {
         constructor(constructionInfo: btRigidBodyConstructionInfo);
         getCenterOfMassTransform(): btTransform;
         setCenterOfMassTransform(xform: btTransform): void;
@@ -513,7 +514,7 @@ declare module 'ammojs-ts' {
         getBroadphaseProxy(): btBroadphaseProxy;
         clearForces(): void;
     }
-    export class btConstraintSetting {
+    class btConstraintSetting {
         constructor();
         get_m_tau(): number;
         set_m_tau(m_tau: number): void;
@@ -522,7 +523,7 @@ declare module 'ammojs-ts' {
         get_m_impulseClamp(): number;
         set_m_impulseClamp(m_impulseClamp: number): void;
     }
-    export class btTypedConstraint {
+    class btTypedConstraint {
         enableFeedback(needsFeedback: boolean): void;
         getBreakingImpulseThreshold(): number;
         setBreakingImpulseThreshold(threshold: number): void;
@@ -535,7 +536,7 @@ declare module 'ammojs-ts' {
         BT_CONSTRAINT_CFM,
         BT_CONSTRAINT_STOP_CFM
     }
-    export class btPoint2PointConstraint extends btTypedConstraint {
+    class btPoint2PointConstraint extends btTypedConstraint {
         constructor(rbA: btRigidBody, rbB: btRigidBody, pivotInA: btVector3, pivotInB: btVector3);
         constructor(rbA: btRigidBody, pivotInA: btVector3);
         setPivotA(pivotA: btVector3): void;
@@ -545,7 +546,7 @@ declare module 'ammojs-ts' {
         get_m_setting(): btConstraintSetting;
         set_m_setting(m_setting: btConstraintSetting): void;
     }
-    export class btGeneric6DofConstraint extends btTypedConstraint {
+    class btGeneric6DofConstraint extends btTypedConstraint {
         constructor(rbA: btRigidBody, rbB: btRigidBody, frameInA: btTransform, frameInB: btTransform, useLinearFrameReferenceFrameA: boolean);
         constructor(rbB: btRigidBody, frameInB: btTransform, useLinearFrameReferenceFrameB: boolean);
         setLinearLowerLimit(linearLower: btVector3): void;
@@ -554,7 +555,7 @@ declare module 'ammojs-ts' {
         setAngularUpperLimit(angularUpper: btVector3): void;
         getFrameOffsetA(): btTransform;
     }
-    export class btGeneric6DofSpringConstraint extends btGeneric6DofConstraint {
+    class btGeneric6DofSpringConstraint extends btGeneric6DofConstraint {
         constructor(rbA: btRigidBody, rbB: btRigidBody, frameInA: btTransform, frameInB: btTransform, useLinearFrameReferenceFrameA: boolean);
         constructor(rbB: btRigidBody, frameInB: btTransform, useLinearFrameReferenceFrameB: boolean);
         enableSpring(index: number, onOff: boolean): void;
@@ -564,10 +565,10 @@ declare module 'ammojs-ts' {
         setEquilibriumPoint(index: number): void;
         setEquilibriumPoint(): void;
     }
-    export class btSequentialImpulseConstraintSolver {
+    class btSequentialImpulseConstraintSolver {
         constructor();
     }
-    export class btConeTwistConstraint extends btTypedConstraint {
+    class btConeTwistConstraint extends btTypedConstraint {
         constructor(rbA: btRigidBody, rbB: btRigidBody, rbAFrame: btTransform, rbBFrame: btTransform);
         constructor(rbA: btRigidBody, rbAFrame: btTransform);
         setLimit(limitIndex: number, limitValue: number): void;
@@ -579,7 +580,7 @@ declare module 'ammojs-ts' {
         setMotorTarget(q: btQuaternion): void;
         setMotorTargetInConstraintSpace(q: btQuaternion): void;
     }
-    export class btHingeConstraint extends btTypedConstraint {
+    class btHingeConstraint extends btTypedConstraint {
         constructor(rbA: btRigidBody, rbB: btRigidBody, pivotInA: btVector3, pivotInB: btVector3, axisInA: btVector3, axisInB: btVector3, useReferenceFrameA?: boolean);
         constructor(rbA: btRigidBody, rbB: btRigidBody, rbAFrame: btTransform, rbBFrame: btTransform, useReferenceFrameA?: boolean);
         constructor(rbA: btRigidBody, rbAFrame: btTransform, useReferenceFrameA?: boolean);
@@ -590,7 +591,7 @@ declare module 'ammojs-ts' {
         setMaxMotorImpulse(maxMotorImpulse: number): void;
         setMotorTarget(targetAngle: number, dt: number): void;
     }
-    export class btSliderConstraint extends btTypedConstraint {
+    class btSliderConstraint extends btTypedConstraint {
         constructor(rbA: btRigidBody, rbB: btRigidBody, frameInA: btTransform, frameInB: btTransform, useLinearReferenceFrameA: boolean);
         constructor(rbB: btRigidBody, frameInB: btTransform, useLinearReferenceFrameA: boolean);
         setLowerLinLimit(lowerLimit: number): void;
@@ -598,12 +599,12 @@ declare module 'ammojs-ts' {
         setLowerAngLimit(lowerAngLimit: number): void;
         setUpperAngLimit(upperAngLimit: number): void;
     }
-    export class btFixedConstraint extends btTypedConstraint {
+    class btFixedConstraint extends btTypedConstraint {
         constructor(rbA: btRigidBody, rbB: btRigidBody, frameInA: btTransform, frameInB: btTransform);
     }
-    export class btConstraintSolver {
+    class btConstraintSolver {
     }
-    export class btDispatcherInfo {
+    class btDispatcherInfo {
         get_m_timeStep(): number;
         set_m_timeStep(m_timeStep: number): void;
         get_m_stepCount(): number;
@@ -627,7 +628,7 @@ declare module 'ammojs-ts' {
         get_m_convexConservativeDistanceThreshold(): number;
         set_m_convexConservativeDistanceThreshold(m_convexConservativeDistanceThreshold: number): void;
     }
-    export class btCollisionWorld {
+    class btCollisionWorld {
         getDispatcher(): btDispatcher;
         rayTest(rayFromWorld: btVector3, rayToWorld: btVector3, resultCallback: RayResultCallback): void;
         getPairCache(): btOverlappingPairCache;
@@ -644,7 +645,7 @@ declare module 'ammojs-ts' {
         debugDrawWorld(): void;
         debugDrawObject(worldTransform: btTransform, shape: btCollisionShape, color: btVector3): void;
     }
-    export class btContactSolverInfo {
+    class btContactSolverInfo {
         get_m_splitImpulse(): boolean;
         set_m_splitImpulse(m_splitImpulse: boolean): void;
         get_m_splitImpulsePenetrationThreshold(): number;
@@ -653,13 +654,13 @@ declare module 'ammojs-ts' {
         set_m_numIterations(m_numIterations: number): void;
     }
     type btInternalTickCallback = (world: btDynamicsWorld, timeStep: number) => void;
-    export class btDynamicsWorld extends btCollisionWorld {
+    class btDynamicsWorld extends btCollisionWorld {
         addAction(action: btActionInterface): void;
         removeAction(action: btActionInterface): void;
         getSolverInfo(): btContactSolverInfo;
         setInternalTickCallback(cb: btInternalTickCallback, worldUserInfo?: unknown, isPreTick?: boolean): void;
     }
-    export class btDiscreteDynamicsWorld extends btDynamicsWorld {
+    class btDiscreteDynamicsWorld extends btDynamicsWorld {
         constructor(dispatcher: btDispatcher, pairCache: btBroadphaseInterface, constraintSolver: btConstraintSolver, collisionConfiguration: btCollisionConfiguration);
         setGravity(gravity: btVector3): void;
         getGravity(): btVector3;
@@ -673,7 +674,7 @@ declare module 'ammojs-ts' {
         setContactProcessedCallback(funcpointer: number): void;
         setContactDestroyedCallback(funcpointer: number): void;
     }
-    export class btVehicleTuning {
+    class btVehicleTuning {
         constructor();
         get_m_suspensionStiffness(): number;
         set_m_suspensionStiffness(m_suspensionStiffness: number): void;
@@ -688,7 +689,7 @@ declare module 'ammojs-ts' {
         get_m_maxSuspensionForce(): number;
         set_m_maxSuspensionForce(m_maxSuspensionForce: number): void;
     }
-    export class btVehicleRaycasterResult {
+    class btVehicleRaycasterResult {
         get_m_hitPointInWorld(): btVector3;
         set_m_hitPointInWorld(m_hitPointInWorld: btVector3): void;
         get_m_hitNormalInWorld(): btVector3;
@@ -696,13 +697,13 @@ declare module 'ammojs-ts' {
         get_m_distFraction(): number;
         set_m_distFraction(m_distFraction: number): void;
     }
-    export class btVehicleRaycaster {
+    class btVehicleRaycaster {
         castRay(from: btVector3, to: btVector3, result: btVehicleRaycasterResult): void;
     }
-    export class btDefaultVehicleRaycaster extends btVehicleRaycaster {
+    class btDefaultVehicleRaycaster extends btVehicleRaycaster {
         constructor(world: btDynamicsWorld);
     }
-    export class RaycastInfo {
+    class RaycastInfo {
         get_m_contactNormalWS(): btVector3;
         set_m_contactNormalWS(m_contactNormalWS: btVector3): void;
         get_m_contactPointWS(): btVector3;
@@ -720,7 +721,7 @@ declare module 'ammojs-ts' {
         get_m_groundObject(): any;
         set_m_groundObject(m_groundObject: any): void;
     }
-    export class btWheelInfoConstructionInfo {
+    class btWheelInfoConstructionInfo {
         get_m_chassisConnectionCS(): btVector3;
         set_m_chassisConnectionCS(m_chassisConnectionCS: btVector3): void;
         get_m_wheelDirectionCS(): btVector3;
@@ -746,7 +747,7 @@ declare module 'ammojs-ts' {
         get_m_bIsFrontWheel(): boolean;
         set_m_bIsFrontWheel(m_bIsFrontWheel: boolean): void;
     }
-    export class btWheelInfo {
+    class btWheelInfo {
         get_m_suspensionStiffness(): number;
         set_m_suspensionStiffness(m_suspensionStiffness: number): void;
         get_m_frictionSlip(): number;
@@ -799,10 +800,10 @@ declare module 'ammojs-ts' {
         get_m_skidInfo(): number;
         set_m_skidInfo(m_skidInfo: number): void;
     }
-    export class btActionInterface {
+    class btActionInterface {
         updateAction(collisionWorld: btCollisionWorld, deltaTimeStep: number): void;
     }
-    export class btKinematicCharacterController extends btActionInterface {
+    class btKinematicCharacterController extends btActionInterface {
         constructor(ghostObject: btPairCachingGhostObject, convexShape: btConvexShape, stepHeight: number, upAxis?: number);
         setUpAxis(axis: number): void;
         setWalkDirection(walkDirection: btVector3): void;
@@ -824,7 +825,7 @@ declare module 'ammojs-ts' {
         onGround(): boolean;
         setUpInterpolate(value: boolean): void;
     }
-    export class btRaycastVehicle extends btActionInterface {
+    class btRaycastVehicle extends btActionInterface {
         constructor(tuning: btVehicleTuning, chassis: btRigidBody, raycaster: btVehicleRaycaster);
         applyEngineForce(force: number, wheel: number): void;
         setSteeringValue(steering: number, wheel: number): void;
@@ -855,18 +856,18 @@ declare module 'ammojs-ts' {
         setUserConstraintId(uid: number): void;
         getUserConstraintId(): number;
     }
-    export class btGhostObject extends btCollisionObject {
+    class btGhostObject extends btCollisionObject {
         constructor();
         getNumOverlappingObjects(): number;
         getOverlappingObject(index: number): btCollisionObject;
     }
-    export class btPairCachingGhostObject extends btGhostObject {
+    class btPairCachingGhostObject extends btGhostObject {
         constructor();
     }
-    export class btGhostPairCallback {
+    class btGhostPairCallback {
         constructor();
     }
-    export class btSoftBodyWorldInfo {
+    class btSoftBodyWorldInfo {
         constructor();
         get_air_density(): number;
         set_air_density(air_density: number): void;
@@ -885,7 +886,7 @@ declare module 'ammojs-ts' {
         get_m_gravity(): btVector3;
         set_m_gravity(m_gravity: btVector3): void;
     }
-    export class Face {
+    class Face {
         get_m_n(): ReadonlyArray<Node>;
         set_m_n(m_n: ReadonlyArray<Node>): void;
         get_m_normal(): btVector3;
@@ -893,11 +894,11 @@ declare module 'ammojs-ts' {
         get_m_ra(): number;
         set_m_ra(m_ra: number): void;
     }
-    export class tFaceArray {
+    class tFaceArray {
         size(): number;
         at(n: number): Face;
     }
-    export class Node {
+    class Node {
         get_m_x(): btVector3;
         set_m_x(m_x: btVector3): void;
         get_m_q(): btVector3;
@@ -913,11 +914,11 @@ declare module 'ammojs-ts' {
         get_m_area(): number;
         set_m_area(m_area: number): void;
     }
-    export class tNodeArray {
+    class tNodeArray {
         size(): number;
         at(n: number): Node;
     }
-    export class Material {
+    class Material {
         get_m_kLST(): number;
         set_m_kLST(m_kLST: number): void;
         get_m_kAST(): number;
@@ -927,11 +928,11 @@ declare module 'ammojs-ts' {
         get_m_flags(): number;
         set_m_flags(m_flags: number): void;
     }
-    export class tMaterialArray {
+    class tMaterialArray {
         size(): number;
         at(n: number): Material;
     }
-    export class Anchor {
+    class Anchor {
         get_m_node(): Node;
         set_m_node(m_node: Node): void;
         get_m_local(): btVector3;
@@ -947,14 +948,14 @@ declare module 'ammojs-ts' {
         get_m_c2(): number;
         set_m_c2(m_c2: number): void;
     }
-    export class tAnchorArray {
+    class tAnchorArray {
         size(): number;
         at(n: number): Anchor;
         clear(): void;
         push_back(val: Anchor): void;
         pop_back(): void;
     }
-    export class Config {
+    class Config {
         get_kVCF(): number;
         set_kVCF(kVCF: number): void;
         get_kDP(): number;
@@ -1006,7 +1007,7 @@ declare module 'ammojs-ts' {
         get_collisions(): number;
         set_collisions(collisions: number): void;
     }
-    export class btSoftBody extends btCollisionObject {
+    class btSoftBody extends btCollisionObject {
         constructor(worldInfo: btSoftBodyWorldInfo, node_count: number, x: btVector3, m: ReadonlyArray<number>);
         get_m_cfg(): Config;
         set_m_cfg(m_cfg: Config): void;
@@ -1040,19 +1041,19 @@ declare module 'ammojs-ts' {
         generateBendingConstraints(distance: number, mat: Material): number;
         upcast(colObj: btCollisionObject): btSoftBody;
     }
-    export class btSoftBodyRigidBodyCollisionConfiguration extends btDefaultCollisionConfiguration {
+    class btSoftBodyRigidBodyCollisionConfiguration extends btDefaultCollisionConfiguration {
         constructor(info?: btDefaultCollisionConstructionInfo);
     }
-    export class btSoftBodySolver {
+    class btSoftBodySolver {
     }
-    export class btDefaultSoftBodySolver extends btSoftBodySolver {
+    class btDefaultSoftBodySolver extends btSoftBodySolver {
         constructor();
     }
-    export class btSoftBodyArray {
+    class btSoftBodyArray {
         size(): number;
         at(n: number): btSoftBody;
     }
-    export class btSoftRigidDynamicsWorld extends btDiscreteDynamicsWorld {
+    class btSoftRigidDynamicsWorld extends btDiscreteDynamicsWorld {
         constructor(dispatcher: btDispatcher, pairCache: btBroadphaseInterface, constraintSolver: btConstraintSolver, collisionConfiguration: btCollisionConfiguration, softBodySolver: btSoftBodySolver);
         addSoftBody(body: btSoftBody, collisionFilterGroup: number, collisionFilterMask: number): void;
         removeSoftBody(body: btSoftBody): void;
@@ -1060,7 +1061,7 @@ declare module 'ammojs-ts' {
         getWorldInfo(): btSoftBodyWorldInfo;
         getSoftBodyArray(): btSoftBodyArray;
     }
-    export class btSoftBodyHelpers {
+    class btSoftBodyHelpers {
         constructor();
         CreateRope(worldInfo: btSoftBodyWorldInfo, from: btVector3, to: btVector3, res: number, fixeds: number): btSoftBody;
         CreatePatch(worldInfo: btSoftBodyWorldInfo, corner00: btVector3, corner10: btVector3, corner01: btVector3, corner11: btVector3, resx: number, resy: number, fixeds: number, gendiags: boolean): btSoftBody;
@@ -1070,3 +1071,6 @@ declare module 'ammojs-ts' {
         CreateFromConvexHull(worldInfo: btSoftBodyWorldInfo, vertices: btVector3, nvertices: number, randomizeConstraints: boolean): btSoftBody;
     }
 }
+
+declare function Ammo(options?: any): Promise<typeof Ammo>;
+export default Ammo;

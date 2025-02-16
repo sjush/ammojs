@@ -1,8 +1,8 @@
 {
   "name": "ammojs-ts",
-  "version": "0.0.3",
+  "version": "0.0.9",
   "description": "Direct port of the Bullet physics engine to JavaScript using Emscripten",
-  "main": "builds/ammo.js",
+  "main": "builds/ammo.wasm.js",
   "types": "./builds/ammojs.d.ts",
   "files": [
     "builds/"
